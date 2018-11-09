@@ -34,7 +34,6 @@ app.post('/register', (req, res) => {
         password : password
     });
 
-
     user.save().then(newUser => {
         res.redirect('/home');
     }).catch(error => {
@@ -62,18 +61,20 @@ app.post('/log-in', (req, res) => {
 });
 
 
-
-
-
-
-
-
+// ----------------
 
 
 app.get('/home', (req, res) => {
     
-    models.store.findAll().then(stores => {
-        console.log(stores[0].dataValues)
+    models.store.findAll({
+        include: [
+            {
+              model : models.item,
+              as : 'items'
+            }
+        
+          ]
+    }).then(stores => {
         res.render('home', {stores:stores});
     }).catch(error => {
         console.log('searching error', error);
@@ -172,6 +173,26 @@ app.post('/add-item/:id', (req, res) => {
         });
     });
 });
+
+app.post('/remove-item/:id', (req, res) => {
+
+    let id = req.params.id;
+
+    models.item.destroy({
+        where : {
+            id : id
+        }
+    }).then(() => {
+        res.redirect('/home');
+    });
+});
+
+
+
+
+
+
+
 
 
 

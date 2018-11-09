@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING
   }, {});
   store.associate = function(models) {
+    store.hasMany(models.item, {as : 'items', foreignKey : 'storeid'});
     // associations can be defined here
   };
   return store;

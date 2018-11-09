@@ -77,7 +77,9 @@
                             <input type="submit" value="Add Item" />
                         </form>
                         
+                        <ul>
                         {{#items}}
+                            <li>
                             <input type="hidden" name="itemName" value="{{itemName}}" />
                             <div>{{itemName}}</div>
 
@@ -86,13 +88,17 @@
 
                             <a href="/modify-item/{{id}}">Modify Item</a>
 
-                            <form action="/remove-item" method="POST">
+                            <form action="/remove-item/{{id}}" method="POST">
                                 <input type="hidden" name="itemName" value="{{itemName}}" />
 
                                 <input type="submit" value="Remove Item" />
                             </form>
+                            </li>
                         {{/items}}
+                        </ul>
                     {{/stores}}
+                    
+                    
                 </div>
             </section>
         </main>
